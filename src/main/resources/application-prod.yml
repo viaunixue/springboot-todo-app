@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: learn-spring-boot
+
+  devtools:
+    restart:
+      enabled: true
+
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+
+  thymeleaf:
+    cache: false
+
+
+logging:
+  level:
+    org:
+      springframework: info
+
+

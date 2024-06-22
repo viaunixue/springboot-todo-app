@@ -1,0 +1,51 @@
+spring:
+  application:
+    name: learn-spring-boot
+
+  profiles:
+    active: prod
+
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+
+  h2:
+    console:
+      enabled: true
+
+  datasource:
+    url: "jdbc:h2:mem:testdb"
+
+  jpa:
+    show-sql: true
+
+  devtools:
+    restart:
+      enabled: true
+
+  thymeleaf:
+    cache: false
+
+
+logging:
+  level:
+    org:
+#      springframework: info
+      springframework: debug
+
+    com:
+      chzzk:
+        study:
+          learn_spring_boot: info
+
+currency-service:
+  url: http://default1.chzzk.com
+  username: defaultUsername
+  key: defaultKey
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

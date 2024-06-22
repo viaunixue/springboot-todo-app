@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: learn-spring-boot
+
+  devtools:
+    restart:
+      enabled: true
+
+  thymeleaf:
+    cache: false
+
+
+logging:
+  level:
+    org:
+      springframework: trace
+
+management:
+  endpoint:
+    env:
+      show-values: ALWAYS
+  endpoints:
+    web:
+      exposure:
+        include: health, metrics
+
+currency-service:
+  url: http://dev.chzzk.com
+  username: devUsername
+  key: devKey
+
