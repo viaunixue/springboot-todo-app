@@ -1,6 +1,6 @@
 package com.chzzk.study.learn_spring_boot.course;
 
-import jakarta.persistence.Column;
+//import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 

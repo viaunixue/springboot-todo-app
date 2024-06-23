@@ -2,8 +2,8 @@ spring:
   application:
     name: learn-spring-boot
 
-  profiles:
-    active: prod
+#  profiles:
+#    active: prod
 
   mvc:
     format:
@@ -21,6 +21,14 @@ spring:
 
   jpa:
     show-sql: true
+    defer-datasource-initialization: true     # hibernate 초기화 지연
+
+  sql:
+    init:
+      username: sa
+      password:
+      schema-locations: classpath*:db/schema.sql
+      data-locations: classpath*:db/data.sql
 
   devtools:
     restart:
@@ -33,8 +41,8 @@ spring:
 logging:
   level:
     org:
-#      springframework: info
-      springframework: debug
+      springframework: info
+#      springframework: debug
 
     com:
       chzzk:

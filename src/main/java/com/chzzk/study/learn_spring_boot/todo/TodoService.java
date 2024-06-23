@@ -17,19 +17,19 @@ public class TodoService {
         todos.add(new Todo(
                 ++todosCount,
                 "chzzk",
-                "Get AWS Certified",
+                "Get AWS Certified 1",
                 LocalDate.now().plusYears(1),
                 false));
         todos.add(new Todo(
                 ++todosCount,
                 "chzzk",
-                "Learn DevOps",
+                "Learn DevOps 1",
                 LocalDate.now().plusYears(2),
                 false));
         todos.add(new Todo(
                 ++todosCount,
                 "chzzk",
-                "Learn Full Stack Development",
+                "Learn Full Stack Development 1",
                 LocalDate.now().plusYears(3),
                 false));
     }
