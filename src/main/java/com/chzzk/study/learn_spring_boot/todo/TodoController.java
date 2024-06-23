@@ -1,6 +1,8 @@
 package com.chzzk.study.learn_spring_boot.todo;
 
 import jakarta.validation.Valid;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -25,7 +27,9 @@ public class TodoController {
 
     @RequestMapping("list-todos")
     public String listAllTodos(ModelMap model) {
-        List<Todo> todos = todoService.findByUsername("chzzk");
+        // String username = (String) model.get("name");
+        String username = getLoggedinUsername();
+        List<Todo> todos = todoService.findByUsername(username);
         model.addAttribute("todos", todos);
 
         return "listTodos";
@@ -33,7 +37,8 @@ public class TodoController {
 
     @RequestMapping(value = "add-todo", method = RequestMethod.GET)
     public String showNewTodoPage(ModelMap model) {
-        String username = (String) model.get("name");
+        // String username = (String) model.get("name");
+        String username = getLoggedinUsername();
         // 단방향 바인딩 -> Controller에서 양식에 표시되는 값으로 바인딩되는 것
         Todo todo = new Todo(0, username, "", LocalDate.now().plusYears(1), false);
         model.put("todo", todo);
@@ -74,6 +79,13 @@ public class TodoController {
     public String deleteTodo(@RequestParam int id) {
         todoService.deleteById(id);
         return "redirect:list-todos";
+    }
+
+    private String getLoggedinUsername() {
+        Authentication authentication =
+                SecurityContextHolder.getContext().getAuthentication();
+
+        return authentication.getName();
     }
 
 }
