@@ -53,8 +53,8 @@ spring:
 logging:
   level:
     org:
-      springframework: info
-#      springframework: debug
+#      springframework: info
+      springframework: debug
 
     com:
       chzzk:
