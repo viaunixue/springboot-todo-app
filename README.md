@@ -1,0 +1,1 @@
+# Git Protection Rule Test
