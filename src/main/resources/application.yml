@@ -12,9 +12,9 @@ spring:
       prefix: /WEB-INF/jsp/
       suffix: .jsp
 
-#  h2:
-#    console:
-#      enabled: true
+  h2:
+    console:
+      enabled: true
 
 #  datasource:
 #    url: "jdbc:h2:mem:testdb"
@@ -23,6 +23,11 @@ spring:
     url: ${MYSQL_URL}
     username: ${MYSQL_USERNAME}
     password: ${MYSQL_PASSWORD}
+
+#  security:
+#    user:
+#      name: ${SECURITY_NAME}
+#      password: ${SECURITY_PWD}
 
   jpa:
     hibernate:
@@ -53,8 +58,8 @@ spring:
 logging:
   level:
     org:
-#      springframework: info
-      springframework: debug
+      springframework: info
+#      springframework: debug
 
     com:
       chzzk:
