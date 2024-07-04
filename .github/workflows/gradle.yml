@@ -49,10 +49,6 @@ jobs:
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
 
-    # backend 디렉토리로 이동해 Gradle build 실행
-    - name: Build with Gradle Wrapper
-      run: ./gradlew build
-
     # Gradle 종속성을 캐시하여 빌드 속도를 향상시키는 옵션
     # 'key'는 캐시에 대한 고유 식별자
     # Gradle 파일이나 설정이 변경될 때마다 다시 생성, 'restore-keys'는 캐시 복원에 사용됨
@@ -68,6 +64,13 @@ jobs:
         key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
         restore-keys: |
           ${{ runner.os }}-gradle-
+
+    # backend 디렉토리로 이동해 Gradle build 실행
+    - name: Build with Gradle Wrapper
+      run: ./gradlew build --warning-mode all
+
+    - name: Test with Grdle
+      run: ./gradlew test --warning-mode all
 
     # NOTE: The Gradle Wrapper is the default and recommended way to run Gradle (https://docs.gradle.org/current/userguide/gradle_wrapper.html).
     # If your project does not have the Gradle Wrapper configured, you can use the following configuration to run Gradle with a specified version.
