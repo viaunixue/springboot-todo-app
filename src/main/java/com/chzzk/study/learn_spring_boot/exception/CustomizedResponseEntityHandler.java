@@ -24,7 +24,7 @@ public class CustomizedResponseEntityHandler extends ResponseEntityExceptionHand
                 ex.getMessage(),
                 request.getDescription(false));
 
-        return new ResponseEntity<ErrorDetails>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(UserNotFoundException.class)
@@ -33,7 +33,7 @@ public class CustomizedResponseEntityHandler extends ResponseEntityExceptionHand
                 ex.getMessage(),
                 request.getDescription(false));
 
-        return new ResponseEntity<ErrorDetails>(errorDetails, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
     }
 
     @Override
