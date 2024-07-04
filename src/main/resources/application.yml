@@ -24,10 +24,10 @@ spring:
     username: ${MYSQL_USERNAME}
     password: ${MYSQL_PASSWORD}
 
-  security:
-    user:
-      name: ${SECURITY_NAME}
-      password: ${SECURITY_PWD}
+#  security:
+#    user:
+#      name: ${SECURITY_NAME}
+#      password: ${SECURITY_PWD}
 
   jpa:
     hibernate:
