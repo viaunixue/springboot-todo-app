@@ -1,0 +1,101 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+# This workflow will build a Java project with Gradle and cache/restore any dependencies to improve the workflow execution time
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-gradle
+
+name: Java CI with Gradle
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches:
+      - 'main'
+      - 'develop'
+    types:
+      - auto_merge_enabled
+
+# 이 workflow에 repository에 대한 쓰기 권한 부여
+permissions:
+  contents: write # 코드 및 콘텐츠 수정
+  pull-requests: write # PR 상태 update & comment
+
+jobs:
+  build:
+    # 이 작업을 최신 Ubuntu 환경에서 실행
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+    - uses: actions/checkout@v4
+
+    # Container에서 Correct JDK 사용하도록 설정
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'corretto'
+
+    # submodule 내용을 update (이 부분 생략 가능)
+    - name: Update Config Submodule
+      run: |
+        git submodule update --init
+
+    # Configure Gradle for optimal use in GitHub Actions, including caching of downloaded dependencies.
+    # See: https://github.com/gradle/actions/blob/main/setup-gradle/README.md
+    - name: Setup Gradle
+      uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
+
+    # backend 디렉토리로 이동해 Gradle build 실행
+    - name: Build with Gradle Wrapper
+      run: ./gradlew build
+
+    # Gradle 종속성을 캐시하여 빌드 속도를 향상시키는 옵션
+    # 'key'는 캐시에 대한 고유 식별자
+    # Gradle 파일이나 설정이 변경될 때마다 다시 생성, 'restore-keys'는 캐시 복원에 사용됨
+    # Githuh Actions 캐시는 Github 인프라에 저장되며 각 job or run이 종료된 후에도 유지
+    # run(액션)이 첫 번째로 시작할 때 키는 '**/*.gradle*', '**/gradle-wrapper.properties' 파일의 해시 값에 따라 생성
+    # 따라서 의존성이 변경되지 않는 한 다음 CI 동작에서도 동일한 캐시 키를 이용해 동일한 캐시를 주어 빌드 시간 단축 
+    - name: Cache Dependencies
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.gradle/caches
+          ~/.gradle/wrapper
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+        restore-keys: |
+          ${{ runner.os }}-gradle-
+
+    # NOTE: The Gradle Wrapper is the default and recommended way to run Gradle (https://docs.gradle.org/current/userguide/gradle_wrapper.html).
+    # If your project does not have the Gradle Wrapper configured, you can use the following configuration to run Gradle with a specified version.
+    #
+    # - name: Setup Gradle
+    #   uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
+    #   with:
+    #     gradle-version: '8.5'
+    #
+    # - name: Build with Gradle 8.5
+    #   run: gradle build
+
+  # 보안 모니터링 및 자동 업데이트 제안
+  # dependency-submission:
+
+  #   runs-on: ubuntu-latest
+  #   permissions:
+  #     contents: write
+
+  #   steps:
+  #   - uses: actions/checkout@v4
+  #   - name: Set up JDK 17
+  #     uses: actions/setup-java@v4
+  #     with:
+  #       java-version: '17'
+  #       distribution: 'corretto'
+
+  #   # Generates and submits a dependency graph, enabling Dependabot Alerts for all project dependencies.
+  #   # See: https://github.com/gradle/actions/blob/main/dependency-submission/README.md
+  #   - name: Generate and submit dependency graph
+  #     uses: gradle/actions/dependency-submission@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
