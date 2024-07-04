@@ -48,6 +48,8 @@ jobs:
     # See: https://github.com/gradle/actions/blob/main/setup-gradle/README.md
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
+      with:
+        gradle-version: '8.8'
 
     # Gradle 종속성을 캐시하여 빌드 속도를 향상시키는 옵션
     # 'key'는 캐시에 대한 고유 식별자
