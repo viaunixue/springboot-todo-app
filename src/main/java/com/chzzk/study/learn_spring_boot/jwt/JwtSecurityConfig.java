@@ -59,19 +59,25 @@ public class JwtSecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.
                         sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .oauth2ResourceServer(
-                        OAuth2ResourceServerConfigurer::jwt)
+//                .oauth2ResourceServer(
+//                        OAuth2ResourceServerConfigurer::jwt)
+                .oauth2ResourceServer(oauth2 -> oauth2
+                        .jwt(jwt -> jwt
+                                .jwtAuthenticationConverter(customJwtAuthenticationConverter())
+                        ))
                 .httpBasic(
                         Customizer.withDefaults())
-                .headers(header -> {header.
-                        frameOptions().sameOrigin();})
+//                .headers(header -> {header.
+//                        frameOptions().sameOrigin();})
+                .headers(headers -> headers
+                        .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin))
                 .build();
     }
 
-//    private JwtAuthenticationConverter customJwtAuthenticationConverter() {
-//        // 필요한 경우 커스텀 설정 추가
-//        return new JwtAuthenticationConverter();
-//    }
+    private JwtAuthenticationConverter customJwtAuthenticationConverter() {
+        // 필요한 경우 커스텀 설정 추가
+        return new JwtAuthenticationConverter();
+    }
 
     @Bean
     public AuthenticationManager authenticationManager(UserDetailsService userDetailsService) {
