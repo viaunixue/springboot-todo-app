@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 public class CustomizedResponseEntityHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(Exception.class)
-    public final ResponseEntity<ErrorDetails> handleAllException(Exception ex, WebRequest request) throws Exception {
+    public final ResponseEntity<Object> handleAllException(Exception ex, WebRequest request) throws Exception {
         ErrorDetails errorDetails = new ErrorDetails(LocalDateTime.now(),
                 ex.getMessage(),
                 request.getDescription(false));
@@ -28,7 +28,7 @@ public class CustomizedResponseEntityHandler extends ResponseEntityExceptionHand
     }
 
     @ExceptionHandler(UserNotFoundException.class)
-    public final ResponseEntity<ErrorDetails> handleUserNotFoundException(Exception ex, WebRequest request) throws Exception {
+    public final ResponseEntity<Object> handleUserNotFoundException(Exception ex, WebRequest request) throws Exception {
         ErrorDetails errorDetails = new ErrorDetails(LocalDateTime.now(),
                 ex.getMessage(),
                 request.getDescription(false));
@@ -40,7 +40,7 @@ public class CustomizedResponseEntityHandler extends ResponseEntityExceptionHand
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
         ErrorDetails errorDetails = new ErrorDetails(LocalDateTime.now(), ex.getFieldError().getDefaultMessage(), request.getDescription(false));
 
-        return new ResponseEntity(errorDetails, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
     }
 
 }
