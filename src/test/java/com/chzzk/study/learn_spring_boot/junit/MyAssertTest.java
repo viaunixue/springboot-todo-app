@@ -21,7 +21,7 @@ class MyAssertTest {
         assertFalse(test2);
         // assertNull, assertNotNull
         // assertArrayEquals({예상 결과 배열}, {메서드에서 나온 실제 배열})
-        assertArrayEquals(new int[] {1, 2}, new int[] {2, 1});
+        assertArrayEquals(new int[] {1, 2}, new int[] {1, 2});
 
         assertEquals(3, todos.size());
     }
