@@ -10,7 +10,7 @@ class MyMathTest {
 
     @Test
     void CalculateSum_ThreeMemberArray() {
-        assertEquals(5, math.calculateSum(new int[]{1, 2, 3}));
+        assertEquals(6, math.calculateSum(new int[]{1, 2, 3}));
     }
 
     @Test
