@@ -35,3 +35,16 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### mysql cache ###
+mysql/data
+
+### querydsl ###
+src/main/generated
+src/test/generated_tests
+
+### .DS_Store ###
+.DS_Store
+._.DS_Store
+**/.DS_Store
+**/._.DS_Store
