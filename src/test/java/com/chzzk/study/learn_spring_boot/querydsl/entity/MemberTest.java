@@ -11,7 +11,7 @@ import java.util.List;
 
 @SpringBootTest
 @Transactional
-@Commit
+// @Commit
 class MemberTest {
     @Autowired
     EntityManager em;
