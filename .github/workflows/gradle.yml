@@ -73,6 +73,10 @@ jobs:
     # backend 디렉토리로 이동해 Gradle build 실행
     - name: Build with Gradle Wrapper
       run: ./gradlew build
+      env:
+        DB_URL: ${{ secrets.DB_URL }}
+        DB_USER_NAME: ${{ secrets.DB_USER_NAME }}
+        DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
 
     # - name: Test with Grdle
     #   run: ./gradlew test
