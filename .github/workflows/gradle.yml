@@ -28,7 +28,21 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+    env:
+      SPRING_DATASOURCE_URL: ${{ secrets.DB_URL }}
+      SPRING_DATASOURCE_USERNAME: ${{ secrets.DB_USER_NAME }}
+      SPRING_DATASOURCE_PASSWORD: ${{ secrets.DB_PASSWORD }}
 
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          MYSQL_DATABASE: chzz-test
+        ports:
+          - 3307:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+        
     steps:
     - uses: actions/checkout@v4
 
@@ -73,10 +87,6 @@ jobs:
     # backend 디렉토리로 이동해 Gradle build 실행
     - name: Build with Gradle Wrapper
       run: ./gradlew build
-      env:
-        DB_URL: ${{ secrets.DB_URL }}
-        DB_USER_NAME: ${{ secrets.DB_USER_NAME }}
-        DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
 
     # - name: Test with Grdle
     #   run: ./gradlew test
