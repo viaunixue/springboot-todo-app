@@ -74,15 +74,9 @@ dependencies {
 //	options.compilerArgs << "-Xlint:unchecked"
 //}
 
-def props = new Properties()
-file("src/main/resources/application.yml").withInputStream { props.load(it) }
-
 test {
 	useJUnitPlatform()
 	jvmArgs '-Xshare:off' // JVM 아규먼트 설정
-	systemProperty "spring.datasource.url", props.getProperty("DB_URL")
-	systemProperty "spring.datasource.username", props.getProperty("DB_USER_NAME")
-	systemProperty "spring.datasource.password", props.getProperty("DB_PASSWORD")
 }
 
 def querydslSrcDir = 'src/main/generated'
