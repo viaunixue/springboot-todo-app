@@ -48,6 +48,7 @@ class QuerydslBasicTest {
         em.createQuery("DELETE FROM Team").executeUpdate();
 
         queryFactory = new JPAQueryFactory(em);
+
         Team teamA = new Team("teamA");
         Team teamB = new Team("teamB");
         em.persist(teamA);
@@ -528,9 +529,6 @@ class QuerydslBasicTest {
 
         System.out.println("result = " + result);
     }
-
-
-
 
 }
 

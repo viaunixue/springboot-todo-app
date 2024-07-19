@@ -3,6 +3,8 @@ package com.chzzk.study.learn_spring_boot.querydsl.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Objects;
+
 @Entity
 // @Setter 실무에서 안쓰는 것 추천
 @Getter @Setter
@@ -38,5 +40,18 @@ public class Member {
     public void changeTeam(Team team) {
         this.team = team;
         team.getMembers().add(this);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Member member = (Member) o;
+        return age == member.age && Objects.equals(id, member.id) && Objects.equals(username, member.username) && Objects.equals(team, member.team);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, username, age, team);
     }
 }
