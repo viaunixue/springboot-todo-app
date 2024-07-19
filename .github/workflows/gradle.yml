@@ -84,12 +84,6 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
-    - name: Wait for MySQL
-      run: |
-        while ! mysqladmin ping -h"127.0.0.1" --silent; do
-          sleep 1
-        done
-
     # backend 디렉토리로 이동해 Gradle build 실행
     - name: Build with Gradle Wrapper
       run: ./gradlew build
