@@ -77,7 +77,7 @@ dependencies {
 def props = new Properties()
 file("src/main/resources/application.yml").withInputStream { props.load(it) }
 
-tasks.named('test') {
+test {
 	useJUnitPlatform()
 	jvmArgs '-Xshare:off' // JVM 아규먼트 설정
 	systemProperty "spring.datasource.url", props.getProperty("DB_URL")
